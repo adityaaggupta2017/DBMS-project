@@ -1,0 +1,297 @@
+create database dbms_project;
+use dbms_project;
+
+CREATE TABLE admin
+(
+    AdminID    INT AUTO_INCREMENT PRIMARY KEY,
+    Admin_Name VARCHAR(50) NOT NULL,
+    Admin_role VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE customers
+(
+    customer_id          INT AUTO_INCREMENT PRIMARY KEY,
+    Name_of_the_customer VARCHAR(50) NOT NULL,
+    Delivery_Address     VARCHAR(50) NOT NULL,
+    AdminID              INT NOT NULL,
+    CONSTRAINT fk_customers_admin FOREIGN KEY (AdminID) REFERENCES admin (AdminID)
+);
+
+CREATE TABLE customer_phone_number
+(
+    Customer_id  INT NOT NULL,
+    Phone_number BIGINT NOT NULL,
+    PRIMARY KEY (Customer_id, Phone_number),
+    CONSTRAINT fk_customer_phone_number_customers FOREIGN KEY (Customer_id) REFERENCES customers (customer_id),
+    CONSTRAINT check_phone_number CHECK (Phone_number BETWEEN 1000000000 AND 9999999999)
+);
+
+CREATE TABLE delivery_partner
+(
+    PartnerID           INT AUTO_INCREMENT PRIMARY KEY,
+    Name_of_the_partner VARCHAR(50) NOT NULL,
+    Vehicle_Details     VARCHAR(50) NOT NULL,
+    Cumulative_Rating   DOUBLE NOT NULL,
+    AdminID             INT NOT NULL,
+    CONSTRAINT fk_delivery_partner_admin FOREIGN KEY (AdminID) REFERENCES admin (AdminID)
+);
+
+CREATE TABLE item
+(
+    ProductID        INT AUTO_INCREMENT PRIMARY KEY,
+    Name_of_the_item VARCHAR(50) NOT NULL,
+    Availability     INT NOT NULL,
+    Description      VARCHAR(50) NOT NULL,
+    Price            DECIMAL(10, 2) NOT NULL,
+    AdminID          INT NOT NULL,
+    CONSTRAINT fk_item_admin FOREIGN KEY (AdminID) REFERENCES admin (AdminID),
+    CONSTRAINT item_availablity_value CHECK ((Availability = 1) OR (Availability = 0))
+);
+
+CREATE TABLE `order`
+(
+    OrderID               INT AUTO_INCREMENT PRIMARY KEY,
+    Pick_Up_Location      VARCHAR(50) NOT NULL,
+    Drop_Off_Location     VARCHAR(50) NOT NULL,
+    Trip_Distance         INT NOT NULL,
+    Trip_Duration         INT NOT NULL,
+    Feedback_of_the_order VARCHAR(50) NOT NULL,
+    Mode_of_payment       VARCHAR(50) NOT NULL,
+    Total_Bill            DOUBLE NOT NULL,
+    Trip_Status           INT NOT NULL,
+    Notes                 VARCHAR(50) NOT NULL,
+    CustomerID            INT NOT NULL,
+    PartnerID             INT NOT NULL,
+    CONSTRAINT fk_order_customers FOREIGN KEY (CustomerID) REFERENCES customers (customer_id),
+    CONSTRAINT fk_order_delivery_partner FOREIGN KEY (PartnerID) REFERENCES delivery_partner (PartnerID),
+    CONSTRAINT Trip_Status_check CHECK ((Trip_Status = 0) OR (Trip_Status = 1) OR (Trip_Status = 2)),
+    CONSTRAINT check_trip_distance CHECK (Trip_Distance <= 50)
+);
+
+CREATE TABLE belongsto
+(
+    OrderID   INT NOT NULL,
+    ProductID INT NOT NULL,
+    PRIMARY KEY (OrderID, ProductID),
+    CONSTRAINT fk_belongsto_item FOREIGN KEY (ProductID) REFERENCES item (ProductID),
+    CONSTRAINT fk_belongsto_order FOREIGN KEY (OrderID) REFERENCES `order` (OrderID)
+);
+
+CREATE TABLE rated_by
+(
+    CustomerID INT NOT NULL,
+    PartnerID  INT NOT NULL,
+    PRIMARY KEY (CustomerID, PartnerID),
+    CONSTRAINT fk_rated_by_customers FOREIGN KEY (CustomerID) REFERENCES customers (customer_id),
+    CONSTRAINT fk_rated_by_delivery_partner FOREIGN KEY (PartnerID) REFERENCES delivery_partner (PartnerID)
+);
+
+CREATE TABLE rates
+(
+    CustomerID INT NOT NULL,
+    PartnerID  INT NOT NULL,
+    PRIMARY KEY (CustomerID, PartnerID),
+    CONSTRAINT fk_rates_customers FOREIGN KEY (CustomerID) REFERENCES customers (customer_id),
+    CONSTRAINT fk_rates_delivery_partner FOREIGN KEY (PartnerID) REFERENCES delivery_partner (PartnerID)
+);
+
+CREATE TABLE shopping_cart
+(
+    Shopping_Cart_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Item_details     VARCHAR(500) NOT NULL,
+    Total_price      DOUBLE NOT NULL,
+    CustomerID       INT NOT NULL,
+    CONSTRAINT shopping_cart_ibfk_1 FOREIGN KEY (CustomerID) REFERENCES customers (customer_id)
+);
+
+CREATE TABLE vendor
+(
+    VendorID           INT AUTO_INCREMENT PRIMARY KEY,
+    Name_of_the_vendor VARCHAR(50) NOT NULL,
+    Contact_Details    VARCHAR(50) NOT NULL,
+    Address            VARCHAR(50) NOT NULL,
+    Total_Transactions VARCHAR(50) NOT NULL,
+    Latest_Feedback    VARCHAR(50) NOT NULL,
+    Current_Rating     VARCHAR(50) NOT NULL,
+    AdminID            INT NOT NULL,
+    CONSTRAINT fk_vendor_admin FOREIGN KEY (AdminID) REFERENCES admin (AdminID)
+);
+
+CREATE TABLE involves
+(
+    VendorID INT NOT NULL,
+    OrderID  INT NOT NULL,
+    PRIMARY KEY (VendorID, OrderID),
+    CONSTRAINT fk_involves_order FOREIGN KEY (OrderID) REFERENCES `order` (OrderID),
+    CONSTRAINT fk_involves_vendor FOREIGN KEY (VendorID) REFERENCES vendor (VendorID)
+);
+
+CREATE TABLE sells
+(
+    VendorID  INT NOT NULL,
+    ProductID INT NOT NULL,
+    PRIMARY KEY (VendorID, ProductID),
+    CONSTRAINT fk_sells_item FOREIGN KEY (ProductID) REFERENCES item (ProductID),
+    CONSTRAINT fk_sells_vendor FOREIGN KEY (VendorID) REFERENCES vendor (VendorID)
+);
+
+
+select * from customers inner join dbms_project.customer_phone_number o on customers.customer_id = o.Customer_id ;
+
+insert into admin(Admin_Name, Admin_role)
+values ('Aditya Gupta' , 'Administrator')
+, ('Chandan Sah' ,'Administrator') , ('Dhruv Sharma' ,'Administrator') ,('Tanmay Singhal' ,'Administrator');
+
+INSERT INTO dbms_project.vendor(Name_of_the_vendor, Contact_Details, Address, Total_Transactions, Latest_Feedback, Current_Rating, AdminID)
+VALUES 
+('Saraswati Pvt Ltd', '7890123456', '123, Mahatma Gandhi Road, Mumbai', 50, 'Great service and quality products.', 4.7, 1),
+('Rajesh Enterprises', '8765432109', '456, Nehru Street, Delhi', 30, 'Prompt delivery and good communication.', 4.2, 2),
+('Ganesh Traders', '9876543210', '789, Indira Nagar, Bangalore', 40, 'Products were exactly as described.', 4.5, 3),
+('Krishna Foods', '7654321098', '321, Tagore Lane, Kolkata', 25, 'Satisfied with the overall experience.', 3.8, 4),
+('Sharma Textiles', '6543210987', '654, Vivekananda Road, Chennai', 35, 'Excellent customer service and quick response.', 4.9, 1),
+('Patel Hardware', '8765432101', '987, Patel Street, Hyderabad', 28, 'Quality of products met my expectations.', 4.1, 2),
+('Verma Electronics', '7890123456', '234, Rajaji Nagar, Pune', 45, 'Smooth transaction and timely delivery.', 4.6, 3),
+('Singh Groceries', '9876543210', '567, Subhash Chandra Bose Avenue, Ahmedabad', 20, 'Received items in good condition.', 3.5, 4),
+('Reddy Pharmaceuticals', '7654321098', '890, Sardar Patel Road, Jaipur', 38, 'Happy with the service provided.', 4.3, 1),
+('Jain Stationery', '6543210987', '123, Jawaharlal Nehru Street, Chandigarh', 42, 'Great variety of products available.', 4.8, 2);
+
+INSERT INTO dbms_project.delivery_partner (Name_of_the_partner, Vehicle_Details, Cumulative_Rating, AdminID) 
+VALUES 
+('Ravi Kumar', 'Scooter - MH 01 AB 1234', 4.7, 1),
+('Suresh Patel', 'Bike - GJ 05 CD 5678', 4.5, 2),
+('Priya Sharma', 'Bike - DL 02 EF 9876', 4.8, 3),
+('Anjali Gupta', 'Bicycle', 4.2, 4),
+('Manoj Singh', 'Bike - UP 09 GH 5432', 4.6, 1),
+('Neha Verma', 'Bike - KA 03 IJ 6789', 4.3, 2),
+('Amit Singhania', 'Bike - RJ 07 KL 2345', 4.9, 3),
+('Deepak Mishra', 'Scooter - TN 10 MN 8765', 4.4, 4),
+('Pooja Sharma', 'Bike - MP 04 OP 4321', 4.7, 1),
+('Rajesh Gupta', 'Bike - BR 06 QR 8765', 4.5, 2);
+
+INSERT INTO customers (Name_of_the_customer, Delivery_Address, AdminID) VALUES
+('Rajesh Kumar', 'A-12, Sector 15, Noida, Uttar Pradesh', 1),
+('Priya Sharma', 'B-5, Green Park, New Delhi', 2),
+('Vikram Singh',  'C-7, MG Road, Gurgaon, Haryana', 3),
+('Anjali Gupta',  'D-9, Indira Nagar, Lucknow, Uttar Pradesh', 4),
+('Ravi Patel', 'E-3, Satellite, Ahmedabad, Gujarat', 1),
+('Pooja Jain', 'F-6, Baner, Pune, Maharashtra', 2),
+( 'Suresh Reddy', 'G-4, Jubilee Hills, Hyderabad, Telangana', 3),
+('Neha Verma','H-8, Koramangala, Bangalore, Karnataka', 4),
+( 'Amit Shah','I-2, Ballygunge, Kolkata, West Bengal', 1),
+( 'Geeta Roy', 'J-1, Tollygunge, Kolkata, West Bengal', 2);
+
+INSERT INTO customer_phone_number (Customer_id,Phone_number) VALUES
+(1,9876543210),
+(2,8765432109),
+(3,7654321098),
+(3,9817883535),
+(4,6543210987),
+(5,5432109876),
+(6,4321098765),
+(7,3210987654),
+(8,2109876543),
+(9,1098765432),
+(10,9987654321);
+
+INSERT into rates
+values (1 , 2) ,
+       (2 , 1) ,
+       (3 , 3) ,
+       (5 , 7) ,
+       (6 , 5) ,
+       (7 , 6) ,
+       (2, 2) ,
+       (8 , 9) ,
+       (4 , 10),
+       (5 , 4);
+
+INSERT into rated_by
+values (1 , 2) ,
+       (2 , 1) ,
+       (3 , 3) ,
+       (5 , 7) ,
+       (6 , 5) ,
+       (7 , 6) ,
+       (2 , 2) ,
+       (8 , 9) ,
+       (4 , 10),
+       (5 , 4);
+
+INSERT INTO dbms_project.item (Name_of_the_item, Availability, Description, Price, AdminID)
+VALUES
+('Garlic Oil - Vegetarian Capsule', 1, 'Helps digestion, cholesterol, cardio, immunity', 220, 1),
+('Water Bottle - Orange', 1, 'Microwave safe, fridge safe, dishwasher safe', 180, 1),
+('Brass Angle Deep - Plain, No.2', 1, 'Perfect gift, traditional design, sturdy', 119, 1),
+('Cereal Flip Lid Container/Storage ', 1, 'Multipurpose container, attractive design', 149, 1),
+('Creme Soft Soap - For Hands & Body', 1, 'Nivea Creme Soft Soap, skin care', 162, 1),
+('Germ - Removal Multipurpose Wipes', 1, 'Stay protected, germ removal, neem extract', 169, 1),
+('Multani Mati', 1, 'Skin toner, reduces oiliness, improves complexion', 58, 1),
+('Hand Sanitizer - 70% Alcohol Base', 1, 'Gentle, leaves skin soft, moisturizing', 250, 1),
+('Biotin & Collagen Volumizing ', 1, 'Volumizing hair care, promotes hair growth', 1098, 1),
+('Scrub Pad - Anti- Bacterial', 1, 'Anti-bacterial, gentle, keeps utensils clean', 20, 1);
+
+INSERT INTO dbms_project.order (Pick_Up_Location, Drop_Off_Location, Trip_Distance, Trip_Duration, Feedback_of_the_order, Mode_of_payment, Total_Bill, Trip_Status, Notes, CustomerID, PartnerID)
+VALUES
+('123, Mahatma Gandhi Road, Mumbai', '456, Nehru Street, Delhi', 20, 2, 'Smooth ride', 'COD', 2500.50, 1, 'Handle with care', 1, 1),
+('456, Nehru Street, Delhi', '789, Indira Nagar, Bangalore', 35, 2, 'Quick delivery', 'UPI', 3600.75, 2, 'Fragile items', 2, 2),
+('789, Indira Nagar, Bangalore', '321, Tagore Lane, Kolkata', 40, 2, 'Good service', 'COD', 4200.25, 1, 'Call before delivery', 3, 3),
+('321, Tagore Lane, Kolkata', '654, Vivekananda Road, Chennai', 30, 2, 'Excellent', 'UPI', 3100.80, 2, 'Leave at the doorstep', 4, 4),
+('654, Vivekananda Road, Chennai', '987, Patel Street, Hyderabad', 25, 2, 'Satisfactory', 'COD', 2800.60, 1, 'Handle with care', 5, 5),
+('987, Patel Street, Hyderabad', '234, Rajaji Nagar, Pune', 15, 1.5, 'Great job', 'UPI', 1900.30, 0, 'Call on arrival', 6, 6),
+('234, Rajaji Nagar, Pune', '567, Subhash Chandra Bose Avenue, Ahmedabad', 45, 2.5, 'Nice experience', 'COD', 5000.40, 1, 'Deliver by 4 pm', 7, 7),
+('567, Subhash Chandra Bose Avenue, Ahmedabad', '890, Sardar Patel Road, Jaipur', 40, 2.5, 'Timely delivery', 'UPI', 4800.90, 2, 'Fragile items', 8, 8),
+('890, Sardar Patel Road, Jaipur', '123, Jawaharlal Nehru Street, Chandigarh', 30, 2, 'Pleasant experience', 'COD', 3200.70, 1, 'Call before delivery', 9, 9),
+('123, Jawaharlal Nehru Street, Chandigarh', '234, Mahatma Gandhi Road, Mumbai', 25, 1.5, 'Fast delivery', 'UPI', 2600.20, 0, 'Handle with care', 10,10);
+
+insert into belongsto
+values (1 , 2) ,
+       (2,1) ,
+       (3,4) ,
+       (4,3) ,
+       (5,6) ,
+       (6,5) ,
+       (7 , 8) ,
+       (8 , 7),
+       (9 , 10) ,
+       (10 ,9);
+
+INSERT INTO shopping_cart (Item_details, Total_price, CustomerID) VALUES
+('Garlic Oil - Vegetarian Capsule, Water Bottle - Orange, Brass Angle Deep - Plain, No.2', 520.99, 1),
+('Cereal Flip Lid Container/Storage, Creme Soft Soap - For Hands & Body, Germ - Removal Multipurpose Wipes', 480.25, 2),
+('Multani Mati, Hand Sanitizer - 70% Alcohol Base, Biotin & Collagen Volumizing', 728.50, 3),
+('Scrub Pad - Anti- Bacterial, Brass Angle Deep - Plain, No.2, Water Bottle - Orange', 319.25, 4),
+('Creme Soft Soap - For Hands & Body, Multani Mati, Biotin & Collagen Volumizing', 1429.95, 5),
+('Water Bottle - Orange, Multani Mati, Hand Sanitizer - 70% Alcohol Base', 408.50, 7),
+('Biotin & Collagen Volumizing, Scrub Pad - Anti- Bacterial, Garlic Oil - Vegetarian Capsule', 1147.98, 8),
+('Cereal Flip Lid Container/Storage, Germ - Removal Multipurpose Wipes, Multani Mati', 376.75, 9),
+('Hand Sanitizer - 70% Alcohol Base, Brass Angle Deep - Plain, No.2, Creme Soft Soap - For Hands & Body', 632.50, 6),
+('Scrub Pad - Anti- Bacterial, Water Bottle - Orange, Garlic Oil - Vegetarian Capsule', 262.50, 10);
+
+INSERT INTO dbms_project.sells (VendorID, ProductID)
+VALUES
+  (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
+  (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
+  (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10),
+  (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6), (4, 7), (4, 8), (4, 9), (4, 10),
+  (5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10),
+  (6, 1), (6, 2), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7), (6, 8), (6, 9), (6, 10),
+  (7, 1), (7, 2), (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (7, 9), (7, 10),
+  (8, 1), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7), (8, 8), (8, 9), (8, 10),
+  (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9), (9, 10),
+  (10, 1), (10, 2), (10, 3), (10, 4), (10, 5), (10, 6), (10, 7), (10, 8), (10, 9), (10, 10);
+
+insert into involves
+values (1 , 1),
+       (2, 2),
+       (3, 3 ),
+       (4, 4) ,
+       (5, 5) ,
+       (6, 6),
+       (7, 7) ,
+       (8 ,8) ,
+       (9 ,9) ,
+       (10 ,10);
+
+
+
+
