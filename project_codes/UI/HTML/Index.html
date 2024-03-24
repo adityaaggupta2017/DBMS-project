@@ -1,163 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Signup - Mathematical Calculations</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/apple-touch-icon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <!-- <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"> -->
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="../JS/index.js"></script>
-  <script type="text/javascript" src="../JS/jquery-3.7.1.js"></script>
-  <script type="text/javascript" src="../JS/plotly-2.29.1.min.js" charset="utf-8"></script>
-
-  
-  <script>
-    function callfuns1(){
-      let x ;
-      AjaxInsertdata() ; 
-      
-    }
-  </script>
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Jan 29 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body width="100%">
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <img class="logocls" src="assets/img/apple-touch-icon.png" alt=""><h4>&nbsp;&nbsp;Mathematical &nbsp;&nbsp;Calculations</h4>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-    <div class="clscentertr3">
-      <strong>Developed by Aditya Gupta</strong>
-    </div>
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle" href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown pe-3">
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/User.jpg" alt="UserImg" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">User Name</span>
-          </a><!-- End Profile Iamge Icon -->
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>User Name</h6>
-              <span>IT Professional</span>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="Temp.html" target="myGeeks">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="Temp.html" target="myGeeks">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="Temp.html" target="myGeeks">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="Temp.html" target="myGeeks">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
-
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">Signup</div>
-          <div class="card-body">
-            <form action="#" method="post">
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Instant marketing</title>
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
+          <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+        </div>
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="assets/images/faces/face1.jpg" alt="profile" />
+                <span class="login-status online"></span>
+                <!--change to offline or busy as needed-->
               </div>
-
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+              <div class="nav-profile-text d-flex flex-column pr-3">
+                <span id="spAdminName" class="font-weight-medium mb-2">Guest</span>
+                <span id="TotalValue" class="font-weight-normal">0</span>
               </div>
-
-              <div class="mb-3">  
-                <label for="address" class="form-label">Delivery Address</label>
-                <input type="text" class="form-control" id="address" name="address">
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="index1.html" target="SiteFrame">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Basic UI Elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/icons/mdi.html">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Icons</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/forms/basic_elements.html">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">Forms</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/charts/chartjs.html">
+              <i class="mdi mdi-chart-bar menu-icon"></i>
+              <span class="menu-title">Charts</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/tables/basic-table.html">
+              <i class="mdi mdi-table-large menu-icon"></i>
+              <span class="menu-title">Tables</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link" href="#">
+              <span class="menu-title">Docs</span>
+            </span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.bootstrapdash.com/demo/breeze-free/documentation/documentation.html">
+              <i class="mdi mdi-file-document-box menu-icon"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li>
+          <li class="nav-item sidebar-actions">
+            <div class="nav-link">
+              <div class="mt-4">
+                <div class="border-none">
+                  <p class="text-black"><a href="CustomerProfile.html" target="SiteFrame">My Profile</a></p>
+                </div>
+                <ul class="mt-4 pl-0">
+                  <li onclick="RemoveParentValue()">Sign Out</li>
+                </ul>
               </div>
-            
-              
-              <div><input type="button" class="btn btn-primary rounded-pill" id="btn_Search" value="Submit" onclick='callfuns1()'/></div>
-            </form>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="container-fluid page-body-wrapper">
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close mdi mdi-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-default-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div> Default
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div> Dark
+          </div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles light"></div>
+            <div class="tiles dark"></div>
           </div>
         </div>
+        <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
+          <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
+            <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+            <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
+              <i class="mdi mdi-menu"></i>
+            </button>
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                  <i class="mdi mdi-bell-outline"></i>
+                  <span class="count count-varient1">7</span>
+                </a>
+                <div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="notificationDropdown">
+                  <h6 class="p-3 mb-0">Notifications</h6>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                      <img src="assets/images/faces/face4.jpg" alt="" class="profile-pic" />
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="mb-0"> Dany Miles <span class="text-small text-muted">commented on your photo</span>
+                      </p>
+                    </div>
+                  </a>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                      <img src="assets/images/faces/face3.jpg" alt="" class="profile-pic" />
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="mb-0"> James <span class="text-small text-muted">posted a photo on your wall</span>
+                      </p>
+                    </div>
+                  </a>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-thumbnail">
+                      <img src="assets/images/faces/face2.jpg" alt="" class="profile-pic" />
+                    </div>
+                    <div class="preview-item-content">
+                      <p class="mb-0"> Alex <span class="text-small text-muted">just mentioned you in his post</span>
+                      </p>
+                    </div>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <p class="p-3 mb-0">View all activities</p>
+                </div>
+              </li>
+              <li class="nav-item dropdown d-none d-sm-flex">
+                <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown">
+                  <i class="mdi mdi-email-outline"></i>
+                  <span class="count count-varient2">5</span>
+                </a>
+                <div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="messageDropdown">
+                  <h6 class="p-3 mb-0">Messages</h6>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-item-content flex-grow">
+                      <span class="badge badge-pill badge-success">Request</span>
+                      <p class="text-small text-muted ellipsis mb-0"> Suport needed for user123 </p>
+                    </div>
+                    <p class="text-small text-muted align-self-start"> 4:10 PM </p>
+                  </a>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-item-content flex-grow">
+                      <span class="badge badge-pill badge-warning">Invoices</span>
+                      <p class="text-small text-muted ellipsis mb-0"> Invoice for order is mailed </p>
+                    </div>
+                    <p class="text-small text-muted align-self-start"> 4:10 PM </p>
+                  </a>
+                  <a class="dropdown-item preview-item">
+                    <div class="preview-item-content flex-grow">
+                      <span class="badge badge-pill badge-danger">Projects</span>
+                      <p class="text-small text-muted ellipsis mb-0"> New project will start tomorrow </p>
+                    </div>
+                    <p class="text-small text-muted align-self-start"> 4:10 PM </p>
+                  </a>
+                  <h6 class="p-3 mb-0">See all activity</h6>
+                </div>
+              </li>
+              <li class="nav-item nav-search border-0 ml-1 ml-md-3 ml-lg-5 d-none d-md-flex">
+                <form class="nav-link form-inline mt-2 mt-md-0">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" />
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="mdi mdi-magnify"></i>
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </li>
+            </ul>
+            <ul class="navbar-nav navbar-nav-right ml-lg-auto">
+              <li class="nav-item dropdown d-none d-xl-flex border-0">
+                <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-toggle="dropdown">
+                  <i class="mdi mdi-earth"></i> English </a>
+                <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
+                  <a class="dropdown-item" href="#"> French </a>
+                  <a class="dropdown-item" href="#"> Spain </a>
+                  <a class="dropdown-item" href="#"> Latin </a>
+                  <a class="dropdown-item" href="#"> Japanese </a>
+                </div>
+              </li>
+              <li class="nav-item nav-profile dropdown border-0">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
+                  <img class="nav-profile-img mr-2" alt="" src="assets/images/faces/face1.jpg" />
+                  <span id="spAdminName1" class="profile-name">Guest</span>
+                </a>
+                <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+                  <a class="dropdown-item" href="CustomerProfile.html" target="SiteFrame">My Profile</a>
+                  <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-logout mr-2 text-primary"></i><span onclick="RemoveParentValue()">Signout</span></a>
+                </div>
+              </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </nav>
+        <div class="main-panel">
+          <iframe class="iframecls" src="Index1.html" name="SiteFrame" id="SiteFrame"> 
+          </iframe>
+
+        </div>
+        <!-- main-panel ends -->
       </div>
+      <!-- page-body-wrapper ends -->
     </div>
-  </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script>
+      let strAdminValues;
+      function showAdminLoginData(ResData){
+        strAdminValues=ResData;
+        //console.log("GlobalData",strValues);
+        document.getElementById("spAdminName").textContent=strAdminValues.Admin_Name;
+        document.getElementById("spAdminName1").textContent=strAdminValues.Admin_Name;
+        //document.getElementById("usrMail").textContent=strValues.EmailID;
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      <strong><span>** Please always click "Submit Button" after changing the values</span></strong>
-    </div>
-  </footer><!-- End Footer -->
+      }
 
-  <!-- Vendor JS Files -->
-  
+      function GetAdminParentValue(){
+        return strAdminValues;
+      }
+
+      function RemoveParentValue(){
+        //alert("Removed User");
+        strAdminValues="";
+        //console.log("GlobalData",strValues);
+        document.getElementById("spAdminName").textContent="Guest";
+        document.getElementById("spAdminName1").textContent="Guest";
+        //document.getElementById("usrMail").textContent="Guest@Email";
+        RemoveUserParentValue();
+        document.getElementById('SiteFrame').src = "Index1.html";
+
+      }
+
+
+      let strValues;
+      function showUserLoginData(ResData){
+        strValues=ResData;
+        //console.log("GlobalData",strValues);
+        document.getElementById("spAdminName").textContent=strValues.Name_of_the_customer;
+        document.getElementById("spAdminName1").textContent=strValues.Name_of_the_customer;
+        //document.getElementById("usrMail").textContent=strValues.EmailID;
+
+      }
+
+      function GetUserParentValue(){
+        return strValues;
+      }
+
+      function RemoveUserParentValue(){
+        strValues="";
+        //console.log("GlobalData",strValues);
+        document.getElementById("spAdminName").textContent="Guest";
+        document.getElementById("spAdminName1").textContent="Guest";
+        //document.getElementById("usrMail").textContent="Guest@Email";
+
+      }
+
+
+
+    </script>
+
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.resize.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.categories.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.stack.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.pie.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

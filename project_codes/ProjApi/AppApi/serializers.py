@@ -15,17 +15,16 @@ class CustomersSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CustomerPhoneNumberSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomerPhoneNumber
-        fields = '__all__'
-
 
 class DeliveryPartnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeliveryPartner
         fields = '__all__'
-
+        
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = category
+        fields = '__all__'
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,18 +44,6 @@ class BelongsToSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class RatedBySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RatedBy
-        fields = '__all__'
-
-
-class RatesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Rates
-        fields = '__all__'
-
-
 class ShoppingCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShoppingCart
@@ -67,15 +54,9 @@ class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
         fields = '__all__'
+        
 
-
-class InvolvesSerializer(serializers.ModelSerializer):
+class GenProcSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Involves
-        fields = '__all__'
-
-
-class SellsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Sells
-        fields = '__all__'
+        model=GenProc
+        fields="__all__"

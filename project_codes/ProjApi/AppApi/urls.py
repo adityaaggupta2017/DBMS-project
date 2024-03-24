@@ -9,22 +9,18 @@ router = routers.DefaultRouter()
 router.register(r'customers' , customerViewSet)
 router.register(r'Admin' , AdminViewSet)
 router.register(r'DeliveryPartner' , DeliveryPartnerViewSet)
+router.register(r'Category' , CategoryViewSet)
 router.register(r'Item' , ItemViewSet)
 router.register(r'Order' , OrderViewSet)
-router.register(r'CustomerPhoneNumber' , CustomerPhoneNumberViewSet)
 router.register(r'BelongsTo' , BelongsToViewSet)
-router.register(r'RatedBy' , RatedByViewSet)
-router.register(r'Rates' , RatesViewSet)
 router.register(r'ShoppingCart' , ShoppingCartViewSet)
 router.register(r'Vendor' , VendorViewSet)
-router.register(r'Involves' , InvolvesViewSet)
-router.register(r'Sells' , SellsViewSet)
 
 
 
 
 urlpatterns = [
     path('' , include(router.urls)) ,
-    path('GetMaxima_Minima' , GetMaxima_Minima) ,
+    path('GenCmd' , GenCmd) ,
     
 ]
