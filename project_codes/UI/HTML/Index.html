@@ -281,6 +281,18 @@
 
       }
 
+      let stPCartID;
+      function SetPCartID(stP){
+        stPCartID=stP;
+      }
+      function GetPCartID(){
+        var stp=stPCartID
+        return stp;
+      }
+      function RemovePCartID(){
+        stPCartID="";
+      }
+
 
       let strValues;
       function showUserLoginData(ResData){

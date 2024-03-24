@@ -1,5 +1,5 @@
-function fnCartDtl(){
-    window.location.href = "CartDtls.html";
+function fnShoppingDtl(){
+    window.location.href = "Shopping.html";
 }
 
 function fnOrderDtl(){
