@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /> 
+    <meta http-equiv="Pragma" content="no-cache" /> 
+    <meta http-equiv="Expires" content="0" />
+    <meta HTTP-EQUIV="Access-Control-Allow-Origin" CONTENT=*>
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <script src="../JS/common.js"></script>
+    <script src="../JS/Vendordtl.js"></script>
+    <script type="text/javascript" src="../JS/jquery-3.7.1.js"></script>
+    <script type="text/javascript" src="../JS/plotly-2.29.1.min.js" charset="utf-8"></script>
+    
+</head>
+<div id="Pad1">
+
+
+<body class="content-wrapper" onload="GetAjaxAllData()">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <span class="clscenter2"><h3><i class="bi bi-star me-1"></i>Vendor Details</h3></span>
+      </div>
+    <div class="clscenter2">
+      <table >
+        <tr><td>Vendor Name</td><td><input type="text" id="txtName_of_the_vendor"/></td></tr>
+        <tr><td>Phone</td><td><input type="text" id="txtContact_Details" /></td></tr>
+        <tr><td>Address</td><td><textarea row="2" id="txtAddress"></textarea></td></tr>
+    </table>
+</div>
+    <br>
+
+    <input type="button" id="btn_Insert" value="Insert" class='btn btn-success btn-rounded btn-fw' onclick="AjaxInsertdata()" />
+    <input type="button" id="btn_GetAlldata " value="Clear"  class='btn btn-success btn-rounded btn-fw' onclick="" />
+    <input type="button" id="btn_BackAdminMgmt " value="Show Admin Management"  class='btn btn-success btn-rounded btn-fw' onclick="AdminMgmt()" />
+   <!-- 
+        <input type="button" id="btn_Search" value="Search" onclick='GetAjaxAllData1($("#tb_GenKeyType").val())' />
+        <input type="button" id="btn_Update" value="Update" onclick="Updatedata()" />
+        <input type="button" id="btn_Delete" value="Delete" onclick="Delete()" />
+    -->
+    <br> <br>
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div  id="Div1" class="table-responsive">
+
+            </div>
+        </div>
+       </div>
+    </div>
+    <br>
+  
+
+   <!-- plugins:js -->
+   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+   <!-- endinject -->
+   <!-- Plugin js for this page -->
+   <script src="assets/vendors/chart.js/Chart.min.js"></script>
+   <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+   <script src="assets/vendors/flot/jquery.flot.js"></script>
+   <script src="assets/vendors/flot/jquery.flot.resize.js"></script>
+   <script src="assets/vendors/flot/jquery.flot.categories.js"></script>
+   <script src="assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+   <script src="assets/vendors/flot/jquery.flot.stack.js"></script>
+   <script src="assets/vendors/flot/jquery.flot.pie.js"></script>
+   <!-- End plugin js for this page -->
+   <!-- inject:js -->
+   <script src="assets/js/off-canvas.js"></script>
+   <script src="assets/js/hoverable-collapse.js"></script>
+   <script src="assets/js/misc.js"></script>
+   <!-- endinject -->
+   <!-- Custom js for this page -->
+   <script src="assets/js/dashboard.js"></script>
+   <!-- End custom js for this page -->
+</body>
+</div>
+</html>

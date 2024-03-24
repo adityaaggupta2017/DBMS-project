@@ -1,189 +1,66 @@
-﻿//import * as echarts from '../HTML/assets/vendor/echarts/echarts';
-
 let x=1;
 let y=7;
-let Tint=0;
-let TPrin=0;
-let GraphData;
-let GraphLayout;
-
+let z=y+2;
+let k=2;
 //BaseURL = "http://localhost:91"
-//BaseURL = "http://127.0.0.1:8000";
+//BaseURL = "http://127.0.0.1:8000"
+//BaseURL = "https://calcsidea.azurewebsites.net"
 
-function CheckNumber(x,y)
-{
-    var x1="";
-    var y1="";
-    x1=x;
-    y1=y;
-    //alert($("#" + x1).val());
-    if ($("#" + x1).val() <= 0)
-        {
-            alert($("#" + x1).val() + " This is not correct value, should be > 0");
-            console.log($("#" + x1).val());
-            $("#" + x1).val(y1);
-        }
 
-}
-
-function CompareValues(x,y)
-{
-    var x1="";
-    var y1="";
-    x1=x;
-    y1=y;
-    //alert($("#" + x1).val());
-    if ($("#" + x1).val() <= $("#" + y1).val())
-        {
-            alert($("#" + x1).val() + " This should be > " + $("#" + y1).val());
-            //console.log($("#" + x1).val());
-            $("#" + x1).val($("#" + y1).val() + 1);
-        }
-
-}
-
-function GenericMasterjs(EMINO,EMI,Int,Prin,fv,pv)
-{
-    this.EMINO = EMINO;
-    this.EMI = EMI;
-    this.Int = Int;
-    this.Prin = Prin;
-    this.fv = fv;
-    this.pv = pv;
-}
-
-function GetTotalValues(Obj) {
-    Tint=0;
-    TPrin=0;
-    for (indx = 0; indx < Obj.length; indx++) {
-            Tint=Tint + parseFloat(Obj[indx].Int);
-            TPrin=TPrin + parseFloat(Obj[indx].Prin);
-            $("#Tint").val(Tint.toFixed(2));
-            $("#TPay").val((TPrin + Tint).toFixed(2));
-        }
-    }
-
-function LoanCriteria(Amount,Tenure,Rate)
-{
-    this.Amount = Amount;
-    this.Tenure = Tenure;
-    this.Rate = Rate;
-}
-
-function DepositCriteria(Amount,Tenure,Rate,RepeatMonth)
-{
-    this.Amount = Amount;
-    this.Tenure = Tenure;
-    this.Rate = Rate;
-    this.RepeatMonth = RepeatMonth;
-}
-
-function DepreciationCriteria(cost , salvage_value , useful_life , total_years)
-{
-    this.cost = cost;
-    this.salvage_value = salvage_value;
-    this.useful_life = useful_life;
-    this.total_years = total_years;
+function UserInfojs(Name_of_the_customer ,  password , Delivery_Address) 
+{   
+    this.Name_of_the_customer = Name_of_the_customer; 
+    this.Delivery_Address = Delivery_Address;
+    this.password = password;
+    this.AdminID = 1 ;
 }
 
 
-
-function Getdata(FnData) {
-    var vlength = FnData.length;
+function callfuns1(){
+    let x ;
+    AjaxInsertdata() ; 
     
-    //var vStr = "<table border=1 class='table table-bordered border-primary'><tr><td> EMINO </td><td>EMI</td> <td>Int</td> <td>Prin</td><td>FV</td><td>PV</td></tr>";
-    var vStr = "<table border=1 class='table table-bordered border-primary'><tr class='headerTable'><td> Year </td><td>Cost</td> <td>Depriciation</td> <td>Cumulative Depriciation</td></tr>";
-    //.datatable
-    for (indx = 0; indx < vlength; indx++)
-    {
-        vStr += "<tr><td>" + FnData[indx].Year + "</td>" +  
-                "<td>" + FnData[indx].Cost + " </td>" + 
-                "<td>" + FnData[indx].Depriciation + " </td>" + 
-                "<td>" + FnData[indx].Cumulative_Depriciation + " </td>"; 
-        //console.log(indx)
-        
-    }
+  }
+// function Getdata(FnData) {
+//     var vlength = FnData.length;
     
-    vStr = vStr + "</table>";
-    document.getElementById("Div1").innerHTML = vStr;
+//     var vStr = "<table border=1 class='table table-bordered border-primary'> <tr><td> Slno </td><td>GenKeyID</td> <td>GenKeyDesc</td> <td>GenKeyType</td><td>Delete Record</td><td>Update Record</td></tr>";
+//     for (indx = 0; indx < vlength; indx++)
+//     {
+//         vStr += "<tr><td><input type='text' id='" + "txtSlno_" + FnData[indx].Slno + "' value='"+ FnData[indx].Slno + "'> </td>" +  
+//                 "<td><input type='text' id='" + "txtUserID_" + FnData[indx].Slno + "' value='"+ FnData[indx].UserID + "'></td>" + 
+//                 "<td><input type='text' id='" + "txtPWD_" + FnData[indx].Slno + "' value='"+ FnData[indx].PWD + "'></td>" + 
+//                 "<td><input type='text' id='" + "txtUserName_" + FnData[indx].Slno + "' value='"+ FnData[indx].UserName + "'></td>" +
+//                 "<td><input type='text' id='" + "txtEmailID_" + FnData[indx].Slno + "' value='"+ FnData[indx].EmailID + "'></td>" + 
+//                 "<td><input type='text' id='" + "txtPhoneNo_" + FnData[indx].Slno + "' value='"+ FnData[indx].PhoneNo + "'></td>" +
+//                 "<td><input type='button' onclick='AjaxDeletedata(" + FnData[indx].Slno + ")' value='Delete' /></td>" + 
+//                 "<td><input type='button' onclick='AjaxUpdatedata(" + FnData[indx].Slno + ")' value='Update' /></td></tr>";
 
-    GetAjaxDepositChart() ;
-        
-}
-
-
-
-function GetAjaxAllData2() {
-    console.log("h0",x,y)
-    //LoanCriteria(Amount,Tenure,Rate)
-    var obj = new DepreciationCriteria($("#tb_Cost").val(), $("#tb_Salvage").val(), $("#tb_Life").val(), $("#tb_Years").val());
-
-    if (parseFloat(obj.cost) < parseFloat(obj.salvage_value)){
-        alert("Cost should be greater than Salvage value");
-        return ;
-    }
+//         //console.log(indx)
+//     }
     
-    if (parseInt(obj.useful_life) <= 0){
-        alert("Useful life should be greater than 0");
-        return ;
-    }
-    // alert(JSON.stringify(obj));
+//    vStr = vStr + "</table>";
+//     document.getElementById("Div1").innerHTML = vStr;
 
+// }
+
+
+function GetAjaxAllData() {
+    // UpdateURL();
     $.ajax({
-        type: "POST",
-        url: BaseURL + "/RePaySchedule/v2/GetDouble_declining",
+        type: "Get",
+        url: BaseURL + "/api1/v1/UserInfo/",
         contentType: "application/json",
         datatype: "json",
-        async: false,
-        data: JSON.stringify(obj),
-        //'{"m":4,"n":6}',
-        //data: '{"m":' + x  + ',"n":' + y + '}',
+        //data: "{'strType': '" + $("#tb_GenKeyType").val() + "'}",
         success: function (response) {
-            
-            //mstfilter = response;
-            mstfilter5 = response;  
-            // alert(mstfilter5);
-            
-            $("#tb_EMI").val(mstfilter5[0]["Cost"]);
-            $("#Tint").val(mstfilter5[mstfilter5.length - 1]["Cumulative_Depriciation"]);
-            
-            var val1 = parseFloat(mstfilter5[mstfilter5.length - 1]["Cumulative_Depriciation"]);
-            var val2 = parseFloat(mstfilter5[0]["Cost"]);
-            var val3 = val2 - val1; 
-            val3 = val3.toFixed(2);
-  
-            $("#TPay").val(val3);
-            //GetTotalValues(mstfilter5);
-            Getdata(mstfilter5);
-            
-        },
-        error: function (err) {
-            // alert(err)
-            console.log(err);
-        }
-        
-    });
-     
-}
 
-function GetAjaxDepositChart() {
-    var obj = new DepreciationCriteria($("#tb_Cost").val(), $("#tb_Salvage").val(), $("#tb_Life").val() , $("#tb_Years").val());
-    $.ajax({
-        type: "POST",
-        //url: BaseURL + "/api1/v1/GenricMaster/",
-        url:"http://127.0.0.1:8000/RePaySchedule/v2/GetDouble_decliningChart",
-        contentType: "application/json",
-        async: false,
-        datatype: "json",
-        data: JSON.stringify(obj),
-        success: function (response) {
-            //alert("hold");
             //mstfilter = response;
             mstfilter = response;
-            //console.log(response);
-            GetChartdata(mstfilter);
+            console.log(response);
+            Getdata(mstfilter);
             
- 
+
         },
         error: function (err) {
 
@@ -192,21 +69,117 @@ function GetAjaxDepositChart() {
     });
 }
 
-function GetChartdata(FnData) {
 
-    GraphData = FnData.data;
-    GraphLayout=FnData.layout;
-    //console.log("H7",GraphData);
-    //console.log("H8",GraphLayout);
-    GetPolyGraph();
+
+function AjaxInsertdata() {
+    var obj = new UserInfojs($("#username").val(), $("#password").val(), $("#address").val());
+    alert(JSON.stringify(obj));
+    $.ajax({
+        type: "POST",
+        url: BaseURL + "/ProjectDb/v2/customers/",
+        contentType: "application/json",
+        datatype: "json",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            alert("I am here")  ;
+            Genmst=[response];
+            console.log(Genmst);
+            // GetAjaxAllData();
+        },
+        error: function (err) {
+            alert("I am here2")  ;
+            console.log(err);
+        }
+    });
 }
 
-function GetPolyGraph(){
-    //alert(GraphData)
-    window.PLOTLYENV=window.PLOTLYENV || {};                                    
-    if (document.getElementById("plgh1")) 
-    {Plotly.newPlot("plgh1",GraphData,GraphLayout)};
+function AjaxDeletedata(ID) {
+    //var obj = new UserInfojs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
+    $.ajax({
+        type: "DELETE",
+        url: BaseURL + "/api1/v1/UserInfo/" + ID + "/",
+        contentType: "application/json",
+        datatype: "json",
+        //data: JSON.stringify(obj),
+        success: function (response) {
+            Genmst=[response];
+            console.log(Genmst);
+            //Getdata(Genmst);
+            GetAjaxAllData();
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
 
+function AjaxUpdatedata(ID) {
+    //st1='#txtGenKeyID_' + ID
+    alert(ID);
+   // console.log($(st1).val())
+   // console.log($('#txtGenKeyDesc_' + ID).val())
+    //console.log($('#txtGenKeyType_' + ID).val())
+
+    var obj = new UserInfojs($("#txtSlno_" + ID).val(), $("#txtUserID_" + ID).val(), $("#txtPWD_" + ID).val(), $("#txtUserName_" + ID).val(), $("#txtEmailID_" + ID).val(), $("#txtPhoneNo_" + ID).val());
+   // console.log("1111111111111111111111");
+    console.log("H1",JSON.stringify(obj));
+   // console.log("11111111111111111111111111");
+   
+    $.ajax({
+        type: "PUT",
+        url: BaseURL + "/api1/v1/UserInfo/" + ID + "/",
+        contentType: "application/json",
+        datatype: "json",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            Genmst=[response];
+            console.log(Genmst);
+            //Getdata(Genmst);
+            GetAjaxAllData();
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+/*
+var mstfilter;
+var mstfilter1;
+var indx;
+
+function GetAjaxAllData2() {
+    UpdateURL()
+    console.log("h0",x,y)
+
+    $.ajax({
+        type: "POST",
+        url: BaseURL + "/api1/v1/Fun/",
+        contentType: "application/json",
+        datatype: "json",
+        //'{"m":4,"n":6}',
+        data: '{"m":' + x  + ',"n":' + y + '}',
+        success: function (response) {
+
+            //mstfilter = response;
+            mstfilter5 = response;
+            z=mstfilter5[0]["Count"];
+            Getdata(mstfilter5);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+        
+    });
+
+    console.log("h6",x,y)
 }
 
 function GetAjaxAllData2_N() {
@@ -230,88 +203,6 @@ function GetAjaxAllData2_P() {
     GetAjaxAllData2()
 }
 
-
-function AjaxInsertdata() {
-    var obj = new GenericMasterjs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
-    
-    $.ajax({
-        type: "POST",
-        url: BaseURL + "/api1/v1/GenricMaster/",
-        contentType: "application/json",
-        datatype: "json",
-        data: "[" + JSON.stringify(obj) +"]",
-        success: function (response) {
-            Genmst=[response];
-            console.log(Genmst);
-            GetAjaxAllData2();
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-}
-
-function AjaxDeletedata(ID) {
-    //var obj = new GenericMasterjs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
-    $.ajax({
-        type: "DELETE",
-        url: BaseURL + "/api1/v1/GenricMaster/" + ID + "/",
-        contentType: "application/json",
-        datatype: "json",
-        //data: JSON.stringify(obj),
-        success: function (response) {
-            Genmst=[response];
-            console.log(Genmst);
-            //Getdata(Genmst);
-            GetAjaxAllData2();
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-}
-
-function AjaxUpdatedata(ID) {
-    st1='#txtGenKeyID_' + ID
-    console.log(st1)
-    console.log($(st1).val())
-    console.log($('#txtGenKeyDesc_' + ID).val())
-    console.log($('#txtGenKeyType_' + ID).val())
-
-    var obj = new GenericMasterjs(ID, $('#txtGenKeyID_' + ID).val(), $('#txtGenKeyDesc_' + ID).val(), $('#txtGenKeyType_' + ID).val());
-    console.log("1111111111111111111111");
-    console.log(JSON.stringify(obj));
-    console.log("11111111111111111111111111");
-   
-    $.ajax({
-        type: "PUT",
-        url: BaseURL + "/api1/v1/GenricMaster/" + ID + "/",
-        contentType: "application/json",
-        datatype: "json",
-        data: JSON.stringify(obj),
-        success: function (response) {
-            Genmst=[response];
-            console.log(Genmst);
-            //Getdata(Genmst);
-            GetAjaxAllData2();
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-}
-
-
-
-
-
-
-
-
-/*
-var mstfilter;
-var mstfilter1;
-var indx;
 
 var Genmst = [{ "Slno": 1, "GenKeyID": "64", "GenKeyDesc": "anjula", "GenKeyType": "abc" }, 
 { "Slno": 2, "GenKeyID": "RPY", "GenKeyDesc": "Residential Property", "GenKeyType": "PropertyType" },
@@ -393,7 +284,7 @@ function fn_Ajax() {
     });
 }
 
-function GenericMasterjs(Slno,GenKeyID,GenKeyDesc,GenKeyType)
+function UserInfojs(Slno,GenKeyID,GenKeyDesc,GenKeyType)
 {
     this.Slno = Slno;
     this.GenKeyID = GenKeyID;
@@ -421,7 +312,7 @@ function AjaxInsertdata() {
 
     //var objtoinsert = { "Slno": $("#tb_Slno").val(), "GenKeyID": $("#tb_GenKeyID").val(), "GenKeyDesc": $("#tb_GenKeyDesc").val(),"GenKeyType": $("#tb_GenKeyType").val()};
 
-    var obj = new GenericMasterjs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
+    var obj = new UserInfojs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
 
     alert(JSON.stringify(obj));
     alert('{"strType":' + JSON.stringify(obj) + '}');
@@ -476,7 +367,7 @@ function Updatedata() {
     //Getdata();
 
 
-    var obj = new GenericMasterjs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
+    var obj = new UserInfojs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
 
     alert(JSON.stringify(obj));
     alert('{"strType":' + JSON.stringify(obj) + '}');
@@ -528,7 +419,7 @@ function deletedata() {
     //Getdata();
 
 
-    var obj = new GenericMasterjs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
+    var obj = new UserInfojs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
 
     alert(JSON.stringify(obj));
     alert('{"strType":' + JSON.stringify(obj) + '}');

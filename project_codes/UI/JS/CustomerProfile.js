@@ -1,105 +1,162 @@
+function fnOrderdtl(){
+    window.location.href = "OrderMgmt.html";
+}
+
 let x=1;
 let y=7;
 let z=y+2;
 let k=2;
-//BaseURL = "http://localhost:91"
-//BaseURL = "http://127.0.0.1:8000"
-//BaseURL = "https://calcsidea.azurewebsites.net"
 
 
-function UserInfojs(Name_of_the_customer ,  password , Delivery_Address) 
-{   
-    this.Name_of_the_customer = Name_of_the_customer; 
+function UserInfojs(Name_of_the_customer,Delivery_Address,Email_Address,password,Phone_number)
+{
+    this.Name_of_the_customer = Name_of_the_customer;
     this.Delivery_Address = Delivery_Address;
+    this.Email_Address = Email_Address;
     this.password = password;
-    this.AdminID = 1 ;
+    this.Phone_number = Phone_number;
+    this.AdminID = 1;
+
 }
 
-// function Getdata(FnData) {
-//     var vlength = FnData.length;
-    
-//     var vStr = "<table border=1 class='table table-bordered border-primary'> <tr><td> Slno </td><td>GenKeyID</td> <td>GenKeyDesc</td> <td>GenKeyType</td><td>Delete Record</td><td>Update Record</td></tr>";
-//     for (indx = 0; indx < vlength; indx++)
-//     {
-//         vStr += "<tr><td><input type='text' id='" + "txtSlno_" + FnData[indx].Slno + "' value='"+ FnData[indx].Slno + "'> </td>" +  
-//                 "<td><input type='text' id='" + "txtUserID_" + FnData[indx].Slno + "' value='"+ FnData[indx].UserID + "'></td>" + 
-//                 "<td><input type='text' id='" + "txtPWD_" + FnData[indx].Slno + "' value='"+ FnData[indx].PWD + "'></td>" + 
-//                 "<td><input type='text' id='" + "txtUserName_" + FnData[indx].Slno + "' value='"+ FnData[indx].UserName + "'></td>" +
-//                 "<td><input type='text' id='" + "txtEmailID_" + FnData[indx].Slno + "' value='"+ FnData[indx].EmailID + "'></td>" + 
-//                 "<td><input type='text' id='" + "txtPhoneNo_" + FnData[indx].Slno + "' value='"+ FnData[indx].PhoneNo + "'></td>" +
-//                 "<td><input type='button' onclick='AjaxDeletedata(" + FnData[indx].Slno + ")' value='Delete' /></td>" + 
-//                 "<td><input type='button' onclick='AjaxUpdatedata(" + FnData[indx].Slno + ")' value='Update' /></td></tr>";
+function UserInfoUpdatejs(customer_id,Name_of_the_customer,Delivery_Address,Email_Address,password,Phone_number)
+{   
+    this.customer_id = customer_id;
+    this.Name_of_the_customer = Name_of_the_customer;
+    this.Delivery_Address = Delivery_Address;
+    this.Email_Address = Email_Address;
+    this.password = password;
+    this.Phone_number = Phone_number;
+    this.AdminID = 1;
 
-//         //console.log(indx)
-//     }
-    
-//    vStr = vStr + "</table>";
-//     document.getElementById("Div1").innerHTML = vStr;
-
-// }
+}
 
 
-function GetAjaxAllData() {
-    // UpdateURL();
+function RemoveUserDetails(){
+    parent.RemoveParentValue();
+    window.location.href = "Index1.html";
+}
+
+
+function showRegUserResData(ResData){
+    $("#txtCustID").val(ResData.customer_id);
+    $("#txtName").val(ResData.Name_of_the_customer);
+    $("#txtAddress").val(ResData.Delivery_Address);
+    $("#txtEmail").val(ResData.Email_Address);
+    $("#txtPWD").val(ResData.password);
+    $("#txtPhone").val(ResData.Phone_number);
+    parent.showUserLoginData(ResData);
+    alert("Registered Successfully!")
+    window.location.href = "OrderMgmt.html";
+
+}
+
+function showUpdatedUserResData(ResData){
+    $("#txtCustID").val(ResData.customer_id);
+    $("#txtName").val(ResData.Name_of_the_customer);
+    $("#txtAddress").val(ResData.Delivery_Address);
+    $("#txtEmail").val(ResData.Email_Address);
+    $("#txtPWD").val(ResData.password);
+    $("#txtPhone").val(ResData.Phone_number);
+    parent.showUserLoginData(ResData);
+    alert("User Information Updated Successfully!")
+    window.location.href = "OrderMgmt.html";
+
+}
+
+function showUserLoginResData(ResData){
+    $("#UserID").val(ResData.UserID);
+    $("#PWD").val(ResData.PWD);
+    parent.SetParentValue(ResData); // = $("#Slno").val();
+    //alert("Login Successfully!");
+    window.location.href = "DefaultPage.html";
+   
+}
+
+function showUserDetails(){
+    var ResData = parent.GetUserParentValue();
+    if (ResData){
+    $("#txtCustID").val(ResData.customer_id);
+    $("#txtName").val(ResData.Name_of_the_customer);
+    $("#txtAddress").val(ResData.Delivery_Address);
+    $("#txtEmail").val(ResData.Email_Address);
+    $("#txtPWD").val(ResData.password);
+    $("#txtPhone").val(ResData.Phone_number);
+    }
+    else
+    {
+        alert("Please Login");
+        window.location.href = "CustomerSignUp.html";
+    }
+}
+
+
+function RemoveUserDetails(){
+    parent.RemoveParentValue();
+    window.location.href = "UserLogin.html";
+}
+
+
+function AjaxUserLogin() {
+    UpdateURL();
+    var obj = new GetUserInfo($("#UserID").val(), $("#PWD").val());
+    //alert(JSON.stringify(obj));
     $.ajax({
-        type: "Get",
-        url: BaseURL + "/api1/v1/UserInfo/",
+        type: "POST",
+        url: BaseURL + "/api1/v1/UserLogin/",
         contentType: "application/json",
         datatype: "json",
-        //data: "{'strType': '" + $("#tb_GenKeyType").val() + "'}",
+        data: JSON.stringify(obj),
         success: function (response) {
-
-            //mstfilter = response;
-            mstfilter = response;
-            console.log(response);
-            Getdata(mstfilter);
-            
-
+            ResObj=response;
+            //console.log(response);
+            showUserLoginResData(ResObj);
         },
         error: function (err) {
-
             console.log(err);
+            alert("UserID or Password not correct. Please check.");
         }
     });
 }
 
 
-
-function AjaxInsertdata() {
-    var obj = new UserInfojs($("#username").val(), $("#password").val(), $("#address").val());
-    alert(JSON.stringify(obj));
+function AjaxInsertCustdata() {
+    UpdateURL();
+   // if (ValidateReg()==1){return}
+    var obj = new UserInfojs($("#txtName").val(),$("#txtAddress").val(),$("#txtEmail").val(),$("#txtPWD").val(),$("#txtPhone").val());
+    //alert(JSON.stringify(obj));
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:8000/" + "/ProjectDb/v2/customers/",
+        url: BaseURL + "/ProjectDb/v2/customers/",
         contentType: "application/json",
         datatype: "json",
         data: JSON.stringify(obj),
         success: function (response) {
-            alert("I am here")  ;
-            Genmst=[response];
-            console.log(Genmst);
-            // GetAjaxAllData();
+            ResObj=response;
+            //console.log(response);
+            showRegUserResData(ResObj);
         },
         error: function (err) {
-            alert("I am here2")  ;
             console.log(err);
+            alert("Email ID not available, please select different ID.");
         }
     });
 }
 
 function AjaxDeletedata(ID) {
-    //var obj = new UserInfojs($("#tb_Slno").val(), $("#tb_GenKeyID").val(), $("#tb_GenKeyDesc").val(), $("#tb_GenKeyType").val());
+    UpdateURL();
+    var CurrUsr = parent.GetUserParentValue()
     $.ajax({
         type: "DELETE",
-        url: BaseURL + "/api1/v1/UserInfo/" + ID + "/",
+        url: BaseURL + "/api1/v1/UserInfo/" + CurrUsr.Slno + "/",
         contentType: "application/json",
         datatype: "json",
         //data: JSON.stringify(obj),
         success: function (response) {
-            Genmst=[response];
-            console.log(Genmst);
+            ResObj=response;
+            //console.log(ResObj);
             //Getdata(Genmst);
-            GetAjaxAllData();
+            RemoveUserDetails();
         },
         error: function (err) {
             console.log(err);
@@ -107,41 +164,119 @@ function AjaxDeletedata(ID) {
     });
 }
 
-function AjaxUpdatedata(ID) {
-    //st1='#txtGenKeyID_' + ID
-    alert(ID);
-   // console.log($(st1).val())
-   // console.log($('#txtGenKeyDesc_' + ID).val())
-    //console.log($('#txtGenKeyType_' + ID).val())
+function AjaxUpdatedata() {
+   UpdateURL();
+   //if (ValidateReg()==1){return}
 
-    var obj = new UserInfojs($("#txtSlno_" + ID).val(), $("#txtUserID_" + ID).val(), $("#txtPWD_" + ID).val(), $("#txtUserName_" + ID).val(), $("#txtEmailID_" + ID).val(), $("#txtPhoneNo_" + ID).val());
-   // console.log("1111111111111111111111");
-    console.log("H1",JSON.stringify(obj));
-   // console.log("11111111111111111111111111");
-   
+   var CurrUsr = parent.GetUserParentValue()
+   var obj = new UserInfoUpdatejs($("#txtCustID").val(),$("#txtName").val(),$("#txtAddress").val(),$("#txtEmail").val(),$("#txtPWD").val(),$("#txtPhone").val());
     $.ajax({
         type: "PUT",
-        url: BaseURL + "/api1/v1/UserInfo/" + ID + "/",
+        url: BaseURL + "/ProjectDb/v2/customers/" + obj.customer_id + "/",
         contentType: "application/json",
         datatype: "json",
         data: JSON.stringify(obj),
         success: function (response) {
-            Genmst=[response];
-            console.log(Genmst);
-            //Getdata(Genmst);
-            GetAjaxAllData();
+            ResObj=response;
+            //console.log("H67",ResObj);
+            showUpdatedUserResData(ResObj);
         },
         error: function (err) {
             console.log(err);
+            alert("Email ID not available, please select different ID.");
         }
     });
 }
 
+function validatePassword() 
+    {
+    var pw=$("#PWD").val()
+    return /[a-z]/       .test(pw) &&
+           /[0-9]/       .test(pw) &&
+           pw.length > 5;
+           /*
+           /[A-Z]/       .test(pw) &&
+           /[^A-Za-z0-9]/.test(pw) &&
+           */
+    }
+function validateUserID() 
+    {
+    var pw=$("#UserID").val()
+    return pw.length > 5;
+    }
+
+function validateUserName() 
+    {
+    var pw=$("#UserName").val()
+    return pw.length > 5;
+    }
+
+function validateEmail() 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test($("#EmailID").val());
+    }
+    
+function validatePhone() 
+    {
+    var pw=$("#PhoneNo").val()
+    if(pw.length == 10)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    }
 
 
+function ValidateReg(){
+    //alert(validatePassword());
+    var i=0
+    if (!validateUserID())
+    {
+        alert("User ID should be > 5 char.")
+        i=1;
+    }
+    if (!validatePassword())
+    {
+        alert("Password length should be > 5, have a-z and 0-9 char.")
+        i=1;
+    }
+    if (!validateUserName())
+    {
+        alert("User Name should be > 5 char.")
+        i=1;
+    }
+    if (!validateEmail())
+    {
+        alert("Please enter valid Email")
+        i=1;
+    }
+    if (!validatePhone())
+    {
+        alert("Please Enter valid Phone No.")
+        i=1;
+    }
+
+    
+    return i;
+    
+}
 
 
+function Validatelogin(){
+    if (!validateUserID())
+    {
+        alert("User ID should be > 5 char.")
+    }
+    if (!validatePassword())
+    {
+        alert("Password length should be > 5, have a-z and 0-9 char.")
+    }
 
+}
 
 
 /*
