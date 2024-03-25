@@ -35,11 +35,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
   queryset = Order.objects.all()
   serializer_class = OrderSerializer
-  
-class BelongsToViewSet(viewsets.ModelViewSet):
-  queryset = BelongsTo.objects.all()
-  serializer_class = BelongsToSerializer
-  
+
   
 class ShoppingCartViewSet(viewsets.ModelViewSet):
   queryset = ShoppingCart.objects.all()

@@ -307,7 +307,7 @@ function AjaxUpdateItemdata(ID) {
 
 
 function AjaxDeleteItem(ID) {
-    var obj = new GetGenInfo("Exec2SQL","delete from shoppingcart where ID=" + ID,"Select JSON_ARRAYAGG(JSON_OBJECT('ID',ID,'CartID',CartID,'ItemID',ItemID,'Quantity',Quantity,'price',price,'OrderDate',OrderDate,'Mode_of_payment',Mode_of_payment,'Trip_Status',Trip_Status,'CustomerID',CustomerID,'PartnerID',PartnerID,'VendorID',VendorID,'CategoryID',CategoryID)) from shoppingcart where cartid=" + stCartID);
+    var obj = new GetGenInfo("Exec2SQL","delete from shoppingcart where ID=" + ID,"Select JSON_ARRAYAGG(JSON_OBJECT('ID',ID,'CartID',CartID,'ItemID',ItemID,'ItemName',(Select Name_of_the_item from item where ProductID=ItemID),'Quantity',Quantity,'price',price,'OrderDate',OrderDate,'Mode_of_payment',Mode_of_payment,'Trip_Status',Trip_Status,'CustomerID',CustomerID,'PartnerID',PartnerID,'VendorID',VendorID,'CategoryID',CategoryID)) from shoppingcart where cartid=" + stCartID);
     $.ajax({
         type: "POST",
         url: BaseURL + "/ProjectDb/v2/GenCmd",

@@ -12,7 +12,6 @@ router.register(r'DeliveryPartner' , DeliveryPartnerViewSet)
 router.register(r'Category' , CategoryViewSet)
 router.register(r'Item' , ItemViewSet)
 router.register(r'Order' , OrderViewSet)
-router.register(r'BelongsTo' , BelongsToViewSet)
 router.register(r'ShoppingCart' , ShoppingCartViewSet)
 router.register(r'Vendor' , VendorViewSet)
 

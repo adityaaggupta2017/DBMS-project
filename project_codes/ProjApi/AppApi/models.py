@@ -75,16 +75,7 @@ class Order(models.Model):
     class Meta:
         db_table = 'order'
 
-class BelongsTo(models.Model):
-    id = models.AutoField(primary_key=True)
-    OrderID = models.ForeignKey(Order, on_delete=models.CASCADE , db_column='OrderID')
-    ProductID = models.ForeignKey(Item, on_delete=models.CASCADE , db_column='ProductID')
-    
-    class Meta:
-        db_table = 'belongsto'
-        
 
-    
 class ShoppingCart(models.Model):
     Shopping_Cart_ID = models.AutoField(primary_key=True)
     Item_details = models.CharField(max_length=500)

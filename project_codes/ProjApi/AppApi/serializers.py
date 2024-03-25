@@ -38,11 +38,6 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class BelongsToSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BelongsTo
-        fields = '__all__'
-
 
 class ShoppingCartSerializer(serializers.ModelSerializer):
     class Meta:
