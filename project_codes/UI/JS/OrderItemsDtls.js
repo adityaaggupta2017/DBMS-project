@@ -6,18 +6,8 @@ let k=2;
 //BaseURL = "http://127.0.0.1:8000"
 //BaseURL = "https://calcsidea.azurewebsites.net"
 function OpenOrderMgmt(){
-    window.location.href = "OrderMgmt.html";
+    window.location.href = "OrderDtls.html";
 }
-
-function fnOrderItemsDtls(ID){
-    //alert(ID);
-    parent.SetPOrderID(ID);
-    window.location.href = "OrderItemsDtls.html";
-    
-}
-
-
-
 
 function UserInfojs(CategoryID,Category_Name)
 {
@@ -25,30 +15,40 @@ function UserInfojs(CategoryID,Category_Name)
     this.Category_Name = Category_Name;
 }
 
+
+
+
+
 function Getdata(FnData) {
     var vlength = FnData.length;
+    var orderPrice=0;
     
-    var vStr = "<table border=1 class='table table-striped'><thead><tr><th> OrderID </th><th>Total Items</th><th>Total Price</th><th>Order Date & Time</tr></thead>";
+    /*var vStr = "<table border=1 class='table table-striped'><thead><tr><th> Item ID </th><th>Price</th><th>Quantity</th><th>Total Price</th></tr></thead>";
     for (indx = 0; indx < vlength; indx++)
     {
-        /*
-        vStr += "<tr><td><input type='text' id='" + "txtOrderID" + FnData[indx].OrderID + "' value='"+ FnData[indx].OrderID + "'> </td>" +  
-                "<td><input type='text' id='" + "txtTotalItems" + FnData[indx].OrderID + "' value='"+ FnData[indx].TotalItems + "'></td>" + 
-                "<td><input type='text' id='" + "txtTotalPrice" + FnData[indx].OrderID + "' value='"+ FnData[indx].TotalPrice + "'></td>" +
-                "<td><input type='text' id='" + "txtOrderDate" + FnData[indx].OrderID + "' value='"+ FnData[indx].OrderDate + "'></td>" +
-                "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='fnOrderItemsDtls(" + FnData[indx].OrderID + ")' value='Show Details' /></td></tr><tr><td><div  id='CDiv" + FnData[indx].OrderID + " class='table-responsive'></div></td></tr>";
-        */
-                
-        vStr += "<tr><td>" + FnData[indx].OrderID + "</td>" +  
-                "<td>" + FnData[indx].TotalItems + "</td>" + 
-                "<td>" + FnData[indx].TotalPrice + "</td>" +
-                "<td>" + FnData[indx].OrderDate + "</td>" +
-                "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='fnOrderItemsDtls(" + FnData[indx].OrderID + ")' value='Show Details' /></td></tr><tr><td><div  id='CDiv" + FnData[indx].OrderID + " class='table-responsive'></div></td></tr>";
+        vStr += "<tr><td><input type='text' id='" + "txtItemID" + FnData[indx].ItemID + "' value='"+ FnData[indx].ItemID + "'> </td>" +  
+                "<td><input type='text' id='" + "txtPrice" + FnData[indx].ItemID + "' value='"+ FnData[indx].Price + "'></td>" + 
+                "<td><input type='text' id='" + "txtQuantity" + FnData[indx].ItemID + "' value='"+ FnData[indx].Quantity + "'></td>" 
+                + 
+                "<td><input type='text' id='" + "txtTotalPrice" + FnData[indx].ItemID + "' value='"+ FnData[indx].Price * FnData[indx].Quantity + "'></td>" 
+               // + "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='ShowOerderItems(" + FnData[indx].OrderID + ")' value='Show Details' /></td></tr><tr><td><div  id='CDiv" + FnData[indx].OrderID + " class='table-responsive'></div></td></tr>";*/
+
+               var vStr = "<table border=1 class='table table-striped'><thead><tr><th> Item ID </th><th> Item Name </th><th>Price</th><th>Quantity</th><th>Total Price</th></tr></thead>";
+               for (indx = 0; indx < vlength; indx++)
+               {
+                   vStr += "<tr><td>"+ FnData[indx].ItemID + "</td>" +
+                           "<td>"+ FnData[indx].ItemName + "</td>" +  
+                           "<td>"+ FnData[indx].Price + "</td>" + 
+                           "<td>"+ FnData[indx].Quantity + "</td>" +
+                           "<td>"+ FnData[indx].Price * FnData[indx].Quantity + "</td>" 
+                          // + "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='ShowOerderItems(" + FnData[indx].OrderID + ")' value='Show Details' /></td></tr><tr><td><div  id='CDiv" + FnData[indx].OrderID + " class='table-responsive'></div></td></tr>";
+        
+        orderPrice += FnData[indx].Price * FnData[indx].Quantity;        
 
         //console.log(indx)
     }
     
-   vStr = vStr + "</table>";
+   vStr = vStr + "<tr><td colspan=3 class='clsright'>Total Order Amount&nbsp;&nbsp; </td><td class='TextBold'>" + orderPrice +"</td></tr></table>";
     document.getElementById("Div1").innerHTML = vStr;
 
 }
@@ -62,18 +62,24 @@ function GetGenInfo(ProcName,SQL1,SQL2)
 }
 
 let stCustID
+let stOrderID
 function AjaxAllOrders() {
-    stCartID=2;
     if (parent.GetUserParentValue())
         {
             stCustID = parent.GetUserParentValue().customer_id;
-            //$("#txtCartID").val(stCartID);
-            //return;
         }
-        //console(stCustID);
-        //alert(stCustID);
 
-    var obj = new GetGenInfo("Exec2SQL","delete from log1 where 1=2","Select JSON_ARRAYAGG(JSON_OBJECT('OrderID',OrderID,'TotalItems',TotalItems,'TotalPrice',TotalPrice,'OrderDate',OrderDate)) from (Select OrderID,Sum(Quantity) TotalItems,Sum(Quantity * price) TotalPrice,Max(OrderDate) OrderDate from `order` where CustomerID=" + stCustID +" group by OrderID) tt1");
+       // alert(parent.GetPOrderID());
+
+    if (parent.GetPOrderID()>0)
+        {
+            stOrderID = parent.GetPOrderID();
+            document.getElementById("spOrderNo").innerHTML = stOrderID;
+            
+        }
+
+
+    var obj = new GetGenInfo("Exec2SQL","delete from log1 where 1=2","Select JSON_ARRAYAGG(JSON_OBJECT('ItemID',ItemID,'ItemName',(Select Name_of_the_item from item where ProductID=ItemID),'Price',Price,'Quantity',Quantity,'Mode_of_payment',Mode_of_payment,'Trip_Status',Trip_Status,'PartnerID',PartnerID,'VendorID',VendorID,'CategoryID',CategoryID)) from `order` where OrderID=" + stOrderID);
     $.ajax({
         type: "POST",
         url: BaseURL + "/ProjectDb/v2/GenCmd",
@@ -91,6 +97,23 @@ function AjaxAllOrders() {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

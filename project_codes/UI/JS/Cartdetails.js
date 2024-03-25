@@ -93,8 +93,7 @@ function ComboVendorDy(dfVal){
                 objVendor=response;
                 
             },
-            error: function (err) {
-    
+            error: function (err) {    
                 console.log(err);
             }
         });
@@ -116,7 +115,7 @@ function ComboPaymentMode(dfVal){
                 stOptions += "<option value='UPI'>UPI</option>";
             }
             else{
-                stOptions += "<option value='Cash'>Cash</option>";
+                stOptions += "<option value='cash'>cash</option>";
                 stOptions += "<option selected value='UPI'>UPI</option>";
             }
             return stOptions;
@@ -192,12 +191,12 @@ function Getdata(FnData) {
     var vlength = FnData.length;
     
   
-    var vStr = "<table border=1 class='table table-striped'><thead><tr><th> Product ID </th><th>Quantity</th> <th>price</th><th>Mode_of_payment</th><th>PartnerID</th><th>VendorID</th><th>CategoryID</th></th><th>Delete Record</th><th>Update Record</th></tr></thead>";
-
+    var vStr = "<table border=1 class='table table-striped'><thead><tr><th> Product ID </th><th> Product Name </th><th>Quantity</th> <th>price</th><th>Total Price</th><th>Mode_of_payment</th><th>PartnerID</th><th>VendorID</th><th>CategoryID</th></th><th>Delete Record</th><th>Update Record</th></tr></thead>";
+    var stCartPrice=0;
     for (indx = 0; indx < vlength; indx++)
     {
         //alert(ComboVendorDy(FnData[indx].VendorID));
-        vStr += "<td><input type='text' id='" + "txtItemID" + FnData[indx].ID + "' value='"+ FnData[indx].ItemID + "'></td>" + 
+        /*vStr += "<td><input type='text' id='" + "txtItemID" + FnData[indx].ID + "' value='"+ FnData[indx].ItemID + "'></td>" + 
                 "<td><input type='text' id='" + "txtQuantity" + FnData[indx].ID + "' value='"+ FnData[indx].Quantity + "'></td>" + 
                 "<td><input type='text' id='" + "txtprice" + FnData[indx].ID + "' value='"+ FnData[indx].price + "'></td>" + 
                 //"<td><input type='text' id='" + "txtMode_of_payment" + FnData[indx].ID + "' value='"+ FnData[indx].Mode_of_payment + "'></td>" + 
@@ -206,12 +205,32 @@ function Getdata(FnData) {
                 "<td><select id='" + "txtMode_of_payment" + FnData[indx].ID + "'>" + ComboPaymentMode(FnData[indx].Mode_of_payment) + "</select></td>" +
                 "<td><select id='" + "txtPartnerID" + FnData[indx].ID + "'>" + ComboPartnerDy(FnData[indx].PartnerID) + "</select></td>" +
                 "<td><select id='" + "txtVendorID" + FnData[indx].ID + "'>" + ComboVendorDy(FnData[indx].VendorID) + "</select></td>" +
-                "<td><select id='" + "txtCategoryID" + FnData[indx].ID + "'>" + ComboDy(FnData[indx].CategoryID) + "</select></td>" +
+                "<td><select Disabled id='" + "txtCategoryID" + FnData[indx].ID + "'>" + ComboDy(FnData[indx].CategoryID) + "</select></td>" +
                 "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='AjaxDeleteItem(" + FnData[indx].ID + ")' value='Delete' /></td>" + 
-                "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='AjaxUpdatedata(" + FnData[indx].ID + ")' value='Update' /></td></tr>";
+                "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='AjaxUpdateItemdata(" + FnData[indx].ID + ")' value='Update' /></td></tr>";*/
+
+
+        vStr += "<td>"+ FnData[indx].ItemID + "</td>" +
+                "<td>"+ FnData[indx].ItemName + "</td>" + 
+                "<td>"+ FnData[indx].Quantity + "</td>" + 
+                "<td>"+ FnData[indx].price + "</td>" + 
+                "<td>"+ FnData[indx].Quantity * FnData[indx].price + "</td>" +
+                //"<td><input type='text' id='" + "txtMode_of_payment" + FnData[indx].ID + "' value='"+ FnData[indx].Mode_of_payment + "'></td>" + 
+                //"<td><input type='text' id='" + "txtPartnerID" + FnData[indx].ID + "' value='"+ FnData[indx].PartnerID + "'></td>" +
+                //"<td><input type='text' id='" + "txtVendorID" + FnData[indx].ID + "' value='"+ FnData[indx].VendorID + "'></td>" + 
+                "<td><select id='" + "txtMode_of_payment" + FnData[indx].ID + "'>" + ComboPaymentMode(FnData[indx].Mode_of_payment) + "</select></td>" +
+                "<td><select id='" + "txtPartnerID" + FnData[indx].ID + "'>" + ComboPartnerDy(FnData[indx].PartnerID) + "</select></td>" +
+                "<td><select id='" + "txtVendorID" + FnData[indx].ID + "'>" + ComboVendorDy(FnData[indx].VendorID) + "</select></td>" +
+                "<td><select Disabled id='" + "txtCategoryID" + FnData[indx].ID + "'>" + ComboDy(FnData[indx].CategoryID) + "</select></td>" +
+                "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='AjaxDeleteItem(" + FnData[indx].ID + ")' value='Delete' /></td>" + 
+                "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='AjaxUpdateItemdata(" + FnData[indx].ID + ")' value='Update' /></td></tr>";
+
+                stCartPrice += FnData[indx].Quantity * FnData[indx].price;
+
     }
     vStr = vStr + "</table>";
     //console.log("Hfinal",vStr)
+    document.getElementById("txtCartPrice").value = stCartPrice;
     document.getElementById("Div1").innerHTML = vStr;
 }
 
@@ -240,7 +259,7 @@ function AjaxGetCartDtl() {
             $("#txtCartID").val(stCartID);
             //return;
         }
-    var obj = new GetGenInfo("Exec2SQL","delete from log1 where 1=2","Select JSON_ARRAYAGG(JSON_OBJECT('ID',ID,'CartID',CartID,'ItemID',ItemID,'Quantity',Quantity,'price',price,'OrderDate',OrderDate,'Mode_of_payment',Mode_of_payment,'Trip_Status',Trip_Status,'CustomerID',CustomerID,'PartnerID',PartnerID,'VendorID',VendorID,'CategoryID',CategoryID)) from shoppingcart where cartid=" + stCartID);
+    var obj = new GetGenInfo("Exec2SQL","delete from log1 where 1=2","Select JSON_ARRAYAGG(JSON_OBJECT('ID',ID,'CartID',CartID,'ItemID',ItemID,'ItemName',(Select Name_of_the_item from item where ProductID=ItemID),'Quantity',Quantity,'price',price,'OrderDate',OrderDate,'Mode_of_payment',Mode_of_payment,'Trip_Status',Trip_Status,'CustomerID',CustomerID,'PartnerID',PartnerID,'VendorID',VendorID,'CategoryID',CategoryID)) from shoppingcart where cartid=" + stCartID);
     $.ajax({
         type: "POST",
         url: BaseURL + "/ProjectDb/v2/GenCmd",
@@ -255,9 +274,35 @@ function AjaxGetCartDtl() {
         },
         error: function (err) {
             console.log(err);
+            alert('No item added in cart');
+            BacktoShopping()
         }
     });
 }
+
+
+function AjaxUpdateItemdata(ID) {
+
+    var obj = new GetGenInfo("Exec2SQL","update shoppingcart Set Mode_of_payment='" + $("#txtMode_of_payment" + ID).val() + "', VendorID=" + $("#txtVendorID" + ID).val() + ", PartnerID=" + $("#txtPartnerID" + ID).val() + " Where ID =" + ID,"Select JSON_ARRAYAGG(JSON_OBJECT('ID',ID,'CartID',CartID,'ItemID',ItemID,'ItemName',(Select Name_of_the_item from item where ProductID=ItemID),'Quantity',Quantity,'price',price,'OrderDate',OrderDate,'Mode_of_payment',Mode_of_payment,'Trip_Status',Trip_Status,'CustomerID',CustomerID,'PartnerID',PartnerID,'VendorID',VendorID,'CategoryID',CategoryID)) from shoppingcart where cartid=" + stCartID);
+    $.ajax({
+        type: "POST",
+        url: BaseURL + "/ProjectDb/v2/GenCmd",
+        contentType: "application/json",
+        datatype: "json",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            //alert("H103");
+            ResObj=response;
+            console.log("h55",ResObj);
+            alert('Records Updated Successfully!');
+            Getdata(ResObj);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
 
 
 
@@ -277,6 +322,8 @@ function AjaxDeleteItem(ID) {
         },
         error: function (err) {
             console.log(err);
+            alert('No item added in cart');
+            BacktoShopping()
         }
     });
 }

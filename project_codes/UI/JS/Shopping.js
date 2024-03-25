@@ -237,11 +237,11 @@ function UserInfojs(ProductID,Name_of_the_item,Availability,Description,Price,Ca
 function Getdata(FnData) {
     var vlength = FnData.length;
     
-    var vStr = "<table border=1 class='table table-striped'><thead><tr><th> ProductID </th><th>Name_of_the_item</th> <th>Availability</th> <th>Description</th><th>Price</th><th>CategoryID</th><th>AdminID</th><th>Buy Quantity</th><th>Add to Cart</th></tr></thead>";
+    var vStr = "<table border=1 class='table table-striped'><thead><tr><th> ProductID </th><th>Name_of_the_item</th> <th>Availability</th> <th>Description</th><th>Price</th><th>CategoryID</th><th>Buy Quantity</th><th>Add to Cart</th></tr></thead>";
     for (indx = 0; indx < vlength; indx++)
     {
         //alert(FnData[indx].ProductID);
-        vStr += "<tr><td><input type='text' id='" + "txtProductID" + FnData[indx].ProductID + "' value='"+ FnData[indx].ProductID + "'> </td>" +  
+        /*vStr += "<tr><td><input type='text' id='" + "txtProductID" + FnData[indx].ProductID + "' value='"+ FnData[indx].ProductID + "'> </td>" +  
                 "<td><input type='text' id='" + "txtName_of_the_item" + FnData[indx].ProductID + "' value='"+ FnData[indx].Name_of_the_item + "'></td>" + 
                 "<td><input type='text' id='" + "txtAvailability" + FnData[indx].ProductID + "' value='"+ FnData[indx].Availability + "'></td>" + 
                 "<td><input type='text' id='" + "txtDescription" + FnData[indx].ProductID + "' value='"+ FnData[indx].Description + "'></td>" +
@@ -249,7 +249,23 @@ function Getdata(FnData) {
                 "<td><select id='" + "txtCategoryID" + FnData[indx].ProductID + "'>" + ComboDy(FnData[indx].CategoryID) + "</select></td>" +
                 "<td><input type='text' id='" + "txtAdminID" + FnData[indx].ProductID + "' value='"+ FnData[indx].AdminID + "'></td>" + 
                 "<td><input type='number' id='" + "txtQuantity" + FnData[indx].ProductID + "' value='0'></td>" +
+                "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='AjaxAddItemstoCart(" + JSON.stringify(FnData[indx]) + ")' value='Add to Cart' /></td></tr>";*/
+
+
+        vStr += "<tr><td>"+ FnData[indx].ProductID + "</td>" +  
+                "<td>"+ FnData[indx].Name_of_the_item + "</td>" + 
+                "<td>"+ FnData[indx].Availability + "</td>" + 
+                "<td>"+ FnData[indx].Description + "</td>" +
+                "<td>"+ FnData[indx].Price + "</td>" +
+                "<td><select Disabled id='" + "txtCategoryID" + FnData[indx].ProductID + "'>" + ComboDy(FnData[indx].CategoryID) + "</select></td>" +
+                //"<td><input type='text' id='" + "txtAdminID" + FnData[indx].ProductID + "' value='"+ FnData[indx].AdminID + "'></td>" + 
+                "<td><input type='number' id='" + "txtQuantity" + FnData[indx].ProductID + "' value='0'></td>" +
                 "<td><input type='button' class='btn btn-success btn-rounded btn-fw' onclick='AjaxAddItemstoCart(" + JSON.stringify(FnData[indx]) + ")' value='Add to Cart' /></td></tr>";
+
+
+
+
+
     }
     vStr = vStr + "</table>";
     //console.log("Hfinal",vStr)
@@ -288,6 +304,7 @@ function AjaxAddItemstoCart(objItem) {
         data: JSON.stringify(obj),
         success: function (response) {
             ResObj=response;
+            alert("Item added to cart successfully");
             //console.log("h55",ResObj);
             //stItems=response;
             //ItemsCombo("txtItemID");
@@ -301,25 +318,6 @@ function AjaxAddItemstoCart(objItem) {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function AjaxInsertdata() {
     var CurrUsr = parent.GetAdminParentValue();
