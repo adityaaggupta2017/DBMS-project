@@ -116,6 +116,12 @@ CREATE TABLE `vendor` (
   CONSTRAINT `fk_vendor_admin` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `inventory_required` (
+  `ProductID` int NOT NULL,
+  `Quantity` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Exec2SQL`(IN txtCmd text)
 BEGIN
@@ -202,3 +208,36 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+DELIMITER //
+
+CREATE TRIGGER update_item_quantity
+AFTER INSERT ON `order`
+FOR EACH ROW
+BEGIN
+    UPDATE item
+    SET Availability = Availability - NEW.Quantity
+    WHERE ProductID = NEW.ItemID;
+END;
+//
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER update_inventory_required
+AFTER UPDATE ON `item`
+FOR EACH ROW
+BEGIN
+
+	IF (NEW.Availability < 0) then
+    
+		insert into inventory_required(ProductID, Quantity)
+		values(NEW.ProductID , NEW.Availability * (-1) ) ;
+    
+    end if ;
+    
+END;
+//
+
+DELIMITER ;
