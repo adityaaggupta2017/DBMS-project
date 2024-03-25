@@ -15544,6 +15544,15 @@ dl {
   text-align: center;
 }
 
+.clsright {
+  text-align: right;
+  font: bolder;
+}
+
+.TextBold {
+   font: bolder;
+}
+
 .clscenter3 {
   text-align: center;
   align-content:center;
